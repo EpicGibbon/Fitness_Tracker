@@ -3,7 +3,7 @@ const router = require("express").Router();
 
 //Getting route to see a workout
 router.get("/api/workouts", (req, res) => {
-    Workout.create({})
+    Workout.find({})
     //push the creating workout into the db
         .then(dbWorkouts => {
             res.json(dbWorkouts);
