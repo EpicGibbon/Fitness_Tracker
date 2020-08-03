@@ -1,8 +1,6 @@
 const express = require("express");
-const path = require("path");
 const mongoose = require("mongoose");
-const session = require("express-session");
-
+const db = require("./models")
 //set up PORT
 const PORT = process.env.PORT || 3000;
 
@@ -15,7 +13,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness_tracker", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout_db", {
     useNewUrlParser: true,
     useFindAndModify: false
 });
@@ -23,8 +21,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitness_tracker
 
 
 // use routes
-app.use(require("./routes/apiRoutes"))
-app.use(require("./routes/htmlRoutes"))
+app.use(require("./routes/apiRoutes"));
+app.use(require("./routes/htmlRoutes"));
 
 
 
