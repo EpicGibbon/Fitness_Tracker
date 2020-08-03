@@ -1,5 +1,5 @@
-const Workout = require("../models/workout")
 const router = require("express").Router();
+const Workout = require("../models/workout")
 
 //Getting route to see a workout
 router.get("/api/workouts", (req, res) => {
@@ -24,9 +24,10 @@ router.get("/api/workouts/range", (req, res) => {
             res.status(400).json(err);
         });
 });
-//Route to create a new workout to DB
-router.post("/api/workouts", (req, res) => {
-    Workout.create({})
+
+//Route for updating a current workout in DB
+router.put("/api/workouts/:id", (req, res) => {
+    Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } })
         .then(dbWorkouts => {
             res.json(dbWorkouts);
         })
@@ -34,9 +35,9 @@ router.post("/api/workouts", (req, res) => {
             res.status(400).json(err);
         });
 });
-//Route for updating a current workout in DB
-router.put("/api/workouts/:id", (req, res) => {
-    Workout.findByIdAndUpdate(req.params.id, { $push: { exercises: req.body } })
+//Route to create a new workout to DB
+router.post("/api/workouts", (req, res) => {
+    Workout.create({})
         .then(dbWorkouts => {
             res.json(dbWorkouts);
         })
